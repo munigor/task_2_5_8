@@ -1,0 +1,96 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <title>All user</title>
+    <th:block th:replace="~{fragment/head}"></th:block>
+</head>
+<body class="h-100">
+<main class="h-100">
+    <nav th:replace="~{fragment/nav}"></nav>
+    <div class="container-fluid">
+        <div class="row flex-nowrap px-0">
+            <div class="col-auto col-md-3 col-xl-2 px-0">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-0 pt-2 min-vh-100">
+                    <ul th:replace="~{fragment/side}"></ul>
+                </div>
+            </div>
+            <div class="col p-5 bg-light h-auto table-responsive-md">
+                <h3>Admin panel</h3>
+                <ul class="nav nav-tabs border-bottom-0">
+                    <li class="nav-item">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Admin</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="create-tab" data-bs-toggle="tab" data-bs-target="#create-tab-pane" type="button" role="tab" aria-controls="create-tab-pane">User</button>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                        <div class="card h-100 w-100 rounded-0 rounded-bottom-1">
+                            <div class="card-header">
+                                <strong>All user</strong>
+                            </div>
+                            <div class="card-body table-responsive-md">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Roles</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="users-tbody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="create-tab-pane" role="tabpanel" aria-labelledby="create-tab" tabindex="0">
+                        <div class="card h-100 w-100">
+                            <div class="card-header">
+                                <strong>Add new user</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xl-4 offset-xl-4">
+                                        <form id="index-add-form" action="#" th:object="${user}" method="post">
+                                            <div th:replace="~{admin/form-fragment::enabledInput('firstname', 'First Name', 'text')}"></div>
+                                            <div th:replace="~{admin/form-fragment::enabledInput('lastname', 'Last Name', 'text')}"></div>
+                                            <div th:replace="~{admin/form-fragment::enabledInput('age', 'Age', 'number')}"></div>
+                                            <div th:replace="~{admin/form-fragment::enabledInput('username', 'Email', 'email')}"></div>
+                                            <div th:replace="~{admin/form-fragment::enabledInput('password', 'Password', 'password')}"></div>
+                                            <div th:replace="~{admin/form-fragment::roles(${user})}"></div>
+                                            <button type="submit" class="btn btn-success" data-submit="Add">Add new user</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="user-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <th:block th:if="${user != null}">
+                        <div th:replace="~{admin/modal::edit(${user})}"></div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+
+</main>
+<th:block th:replace="~{fragment/footer}"></th:block>
+<script type="module" th:src="@{/js/adminIndex.js}"></script>
+</body>
+</html>

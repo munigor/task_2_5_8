@@ -1,0 +1,10 @@
+<ul th:fragment="side" class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100"
+    id="side-menu">
+    <li class="nav-item nav-pills w-100" th:each="item : ${side}">
+        <a th:href="${item.url}" class="nav-link align-middle px-0 btn btn-primary rounded-0 w-100"
+            th:classappend="${@urlBean.isActive(item.url) ? 'active' : ''}">
+            <b>&#9711;</b>
+            <span class="ms-1 d-none d-sm-inline" th:text="${item.name}"></span>
+        </a>
+    </li>
+</ul>

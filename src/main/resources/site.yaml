@@ -1,0 +1,13 @@
+site:
+  nav:
+    side:
+      -
+        name: Admin
+        url: /admin
+        roles: ROLE_ADMIN
+      -
+        name: User
+        url: /user
+        roles:
+          - ROLE_ADMIN
+          - ROLE_USER

@@ -1,0 +1,60 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <title>User Information Page</title>
+    <th:block th:replace="~{fragment/head}"></th:block>
+</head>
+<body class="h-100">
+<main class="h-100">
+    <nav th:replace="~{fragment/nav}"></nav>
+    <div class="container-fluid">
+        <div class="row flex-nowrap px-0">
+            <div class="col-auto col-md-3 col-xl-2 px-0">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-0 pt-2 min-vh-100">
+                    <ul th:replace="~{fragment/side}"></ul>
+                </div>
+            </div>
+            <div class="col p-5 bg-light h-auto table-responsive-md">
+                <h3>User Information Page</h3>
+                <div class="tab-content" >
+                    <div class="tab-pane fade show active">
+                        <div class="card h-100 w-100 rounded-0 rounded-bottom-1">
+                            <div class="card-header">
+                                <strong>About User</strong>
+                            </div>
+                            <div class="card-body w-100 table-responsive-md">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Roles</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:object="${authorizedUser}">
+                                        <td th:text="*{id}"></td>
+                                        <td th:text="*{firstname}"></td>
+                                        <td th:text="*{lastname}"></td>
+                                        <td th:text="*{age}"></td>
+                                        <td th:text="*{username}"></td>
+                                        <td th:text="*{rolesAsString}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<th:block th:replace="~{fragment/footer}"></th:block>
+</body>
+</html>

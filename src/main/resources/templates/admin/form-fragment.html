@@ -1,0 +1,26 @@
+<th:block th:fragment="enabledInput(fieldName, labelText, inputType)"
+          th:replace="~{::input(${fieldName}, ${labelText}, ${inputType}, false)}">
+</th:block>
+
+<div class="mb-3" th:fragment="roles(user)">
+    <label for="roles" class="form-label fw-bold">Choose Roles</label>
+    <select class="form-control" name="roles" id="roles" multiple required
+            th:classappend="${#fields.hasErrors('roles')} ? 'is-valid'">
+        <option th:each="role : ${@roleBean.getAll()}"
+                th:value="${role.id}"
+                th:text="${role.name}"
+                th:selected="${user.isPresentRole(role.id)}">
+        </option>
+    </select>
+    <div class="valid-feedback" th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}">
+    </div>
+</div>
+
+<div th:fragment="input(fieldName, labelText, inputType, disabled)" class="mb-3">
+    <label th:for="|${fieldName}|" class="form-label fw-bold" th:text="${labelText}"></label>
+    <input th:field="*{__${fieldName}__}" th:disabled="${disabled}"
+           th:classappend="${#fields.hasErrors(fieldName)} ? 'is-valid'"
+           th:type="${inputType}" class="form-control" th:id="|${fieldName}|">
+    <div class="valid-feedback" th:if="${#fields.hasErrors(fieldName)}" th:errors="*{__${fieldName}__}">
+    </div>
+</div>

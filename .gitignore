@@ -1,0 +1,5 @@
+.*
+!.gitignore
+**/target
+**/test
+/src/main/resources/db.properties

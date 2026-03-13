@@ -1,0 +1,15 @@
+<nav th:fragment="nav" class="navbar navbar-expand navbar-dark bg-dark">
+    <div class="container-fluid">
+        <span class="navbar-brand">[[${authorizedUser.username}]] with roles [[${authorizedUser.rolesAsString} ]]</span>
+        <button class="navbar-toggler">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse">
+            <span class="me-auto"></span>
+            <form action="/logout">
+                <button class="btn btn-outline-secondary" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+</nav>

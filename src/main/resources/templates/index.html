@@ -1,0 +1,27 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <title>Welcome to Index page!</title>
+    <th:block th:replace="~{fragment/head}"></th:block>
+</head>
+<body class="h-100">
+<main class="h-100">
+    <nav th:if="${authorizedUser != null}" th:replace="~{fragment/nav}"></nav>
+    <div class="container-fluid">
+        <div class="row flex-nowrap px-0">
+            <div class="col-auto col-md-3 col-xl-2 px-0">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-0 pt-2 min-vh-100">
+                    <ul th:replace="~{fragment/side}"></ul>
+                </div>
+            </div>
+            <div class="col p-5 bg-light h-auto">
+                <h3>Welcome to Index page!</h3>
+            </div>
+        </div>
+    </div>
+</main>
+<th:block th:replace="~{fragment/footer}"></th:block>
+</body>
+</html>
