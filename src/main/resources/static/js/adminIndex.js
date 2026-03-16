@@ -6,7 +6,7 @@ const modal = new bootstrap.Modal(modalElement);
 
 const triggerEl = document.querySelector('#home-tab');
 
-const BASE_URL = '/api/v1/user';
+const BASE_URL = '/api/v1/admin';
 const API_URL = {
     all: BASE_URL,
     get: `${BASE_URL}/get/`,
