@@ -6,14 +6,13 @@ const modal = new bootstrap.Modal(modalElement);
 
 const triggerEl = document.querySelector('#home-tab');
 
-const BASE_URL = '/api/v1/admin';
-const API_URL = {
-    all: BASE_URL,
-    get: `${BASE_URL}/get/`,
-    add: `${BASE_URL}/add`,
-    edit: `${BASE_URL}/edit`,
-    delete: `${BASE_URL}/delete/`,
-}
+const BASE_URL = '/api/v1/admin/';
+const PROPS = {
+    get: { method: 'GET' },
+    add: { method: 'POST' },
+    edit: { method: 'PUT' },
+    delete: { method: 'DELETE' },
+};
 
 const _props = {
     method: "POST",
@@ -46,9 +45,9 @@ const resetInput = () => {
     });
 };
 
-const fill = (e, disabled = false) => {
+const fill = (e, url, props, disabled = false) => {
     e.preventDefault();
-    _fetch(`${API_URL.get}${e.target.dataset.userId}`)
+    _fetch(url, props)
         .then((data) => {
             const user = data['payload'];
             modalElement.querySelector("input[class='form-control not']").value = user.id;
@@ -90,14 +89,16 @@ const fillTable = data => {
     });
 };
 
-const submitForm = (url, _title, trigger = () => {}, form = null) => {
+const submitForm = (url, props, _title, trigger = () => {}, form = null) => {
     let dataObject = null;
     if(form != null) {
         const formData = new FormData(form);
         dataObject = Object.fromEntries(formData.entries());
         dataObject['roles'] = formData.getAll('roles') !== undefined ? formData.getAll('roles') : [];
     }
-    _fetch(url, {body:  JSON.stringify(dataObject)})
+    props.body = JSON.stringify(dataObject);
+    console.log(props);
+    _fetch(url, props)
         .then(data => {
             if (data['success'] === true) {
                 trigger();
@@ -123,32 +124,32 @@ const submitForm = (url, _title, trigger = () => {}, form = null) => {
 };
 
 
-const initTable = () => {_fetch(API_URL.all).then(fillTable);};
+const initTable = () => {_fetch(BASE_URL, PROPS.get).then(fillTable);};
 
 const handler = (e) => {
     const target = e.target;
     if(target.dataset.btn === "Edit") {
-        fill(e,false);
+        fill(e,`${BASE_URL}${target.dataset.userId}`, PROPS.get, false);
     } else if(target.dataset.btn === "Delete") {
-        fill(e,true);
+        fill(e,`${BASE_URL}${target.dataset.userId}`, PROPS.get,true);
     } else if(target.dataset.submit === "Add") {
         e.preventDefault();
         const form = document.querySelector("#index-add-form");
-        submitForm(API_URL.add, "Add user", () => {triggerEl.click(); form.reset();}, form)
+        submitForm(BASE_URL, PROPS.add, "Add user", () => {triggerEl.click(); form.reset();}, form)
     } else if(target.dataset.submit === "Edit") {
         e.preventDefault();
         const form = modalElement.querySelector("form");
-        submitForm(API_URL.edit, 'Edit user', () => {modal.hide(); form.reset();}, form);
+        submitForm(BASE_URL, PROPS.edit, 'Edit user', () => {modal.hide(); form.reset();}, form);
     } else if(target.dataset.submit === "Delete") {
         e.preventDefault();
-        submitForm(`${API_URL.delete}${target.dataset.userId}`, "Delete user", () => {modal.hide()})
+        submitForm(`${BASE_URL}${target.dataset.userId}`, PROPS.delete, "Delete user", () => {modal.hide()})
     } else if(target.matches(".close-modal-dialog")) {
         e.target.blur();
         modal.hide();
     }
 };
 
-window.onload = e => {
+const contentLoaded = e => {
     document.addEventListener("click", handler);
     modalElement.addEventListener("hide.bs.modal", e => {
         document.activeElement.blur();
@@ -156,3 +157,5 @@ window.onload = e => {
     });
     initTable();
 };
+
+document.addEventListener("DOMContentLoaded", contentLoaded);

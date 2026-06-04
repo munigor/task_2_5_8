@@ -18,18 +18,18 @@ import java.util.List;
 public class AdminApiController {
     private final UserService userService;
 
-    @PostMapping({"", "/", "/index"})
+    @GetMapping({"", "/", "/index"})
     public List<User> getUsers() {
         return  userService.findAll();
     }
 
-    @PostMapping("/get/{id}")
+    @GetMapping("/{id}")
     public User getUser(@PathVariable Long id) {
         return userService.findById(id);
     }
 
 
-    @PostMapping("/add")
+    @PostMapping({"", "/", "/index"})
     public Response<?> addUser(@Validated(OnCreate.class) @RequestBody UserDto user) {
         userService.add(user);
         return Response.builder()
@@ -38,7 +38,7 @@ public class AdminApiController {
             .build();
     }
 
-    @PostMapping("/edit")
+    @PutMapping({"", "/", "/index"})
     public Response<?> editUser(@Validated(OnUpdate.class) @RequestBody UserDto user) {
         userService.update(user);
         return Response.builder()
@@ -47,7 +47,7 @@ public class AdminApiController {
             .build();
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public Response<?> remove(@PathVariable("id") Long userId) {
         userService.delete(userId);
         return Response.builder()

@@ -36,15 +36,7 @@
                                         <th scope="col">Roles</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr th:object="${authorizedUser}">
-                                        <td th:text="*{id}"></td>
-                                        <td th:text="*{firstname}"></td>
-                                        <td th:text="*{lastname}"></td>
-                                        <td th:text="*{age}"></td>
-                                        <td th:text="*{username}"></td>
-                                        <td th:text="*{rolesAsString}"></td>
-                                    </tr>
+                                    <tbody id="userInfo">
                                     </tbody>
                                 </table>
                             </div>
@@ -56,5 +48,6 @@
     </div>
 </main>
 <th:block th:replace="~{fragment/footer}"></th:block>
+<script type="module" th:src="@{/js/userIndex.js}"></script>
 </body>
 </html>

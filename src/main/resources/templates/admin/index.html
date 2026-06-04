@@ -60,13 +60,8 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-xl-4 offset-xl-4">
-                                        <form id="index-add-form" action="#" th:object="${user}" method="post">
-                                            <div th:replace="~{admin/form-fragment::enabledInput('firstname', 'First Name', 'text')}"></div>
-                                            <div th:replace="~{admin/form-fragment::enabledInput('lastname', 'Last Name', 'text')}"></div>
-                                            <div th:replace="~{admin/form-fragment::enabledInput('age', 'Age', 'number')}"></div>
-                                            <div th:replace="~{admin/form-fragment::enabledInput('username', 'Email', 'email')}"></div>
-                                            <div th:replace="~{admin/form-fragment::enabledInput('password', 'Password', 'password')}"></div>
-                                            <div th:replace="~{admin/form-fragment::roles(${user})}"></div>
+                                        <form id="index-add-form" action="#" method="post">
+                                            <th:block th:replace="~{admin/form-fragment::userFields}"></th:block>
                                             <button type="submit" class="btn btn-success" data-submit="Add">Add new user</button>
                                         </form>
                                     </div>
@@ -82,9 +77,7 @@
         <div class="modal fade" id="user-modal">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <th:block th:if="${user != null}">
-                        <div th:replace="~{admin/modal::edit(${user})}"></div>
-                    </th:block>
+                    <div th:replace="~{admin/modal::edit}"></div>
                 </div>
             </div>
         </div>
