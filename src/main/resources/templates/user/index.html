@@ -1,24 +1,40 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      lang="en">
+<html lang="en">
 <head>
     <title>User Information Page</title>
-    <th:block th:replace="~{fragment/head}"></th:block>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.css" />
+    <link href="/css/main.css" rel="stylesheet">
 </head>
 <body class="h-100">
 <main class="h-100">
-    <nav th:replace="~{fragment/nav}"></nav>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="container-fluid">
+            <span id="main-logo" class="navbar-brand"></span>
+            <button class="navbar-toggler">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse">
+                <span class="me-auto"></span>
+                <form action="/logout">
+                    <button class="btn btn-outline-secondary" type="submit">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
     <div class="container-fluid">
         <div class="row flex-nowrap px-0">
             <div class="col-auto col-md-3 col-xl-2 px-0">
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-0 pt-2 min-vh-100">
-                    <ul th:replace="~{fragment/side}"></ul>
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100"  id="side-menu"></ul>
                 </div>
             </div>
             <div class="col p-5 bg-light h-auto table-responsive-md">
                 <h3>User Information Page</h3>
-                <div class="tab-content" >
+                <div class="tab-content">
                     <div class="tab-pane fade show active">
                         <div class="card h-100 w-100 rounded-0 rounded-bottom-1">
                             <div class="card-header">
@@ -47,7 +63,11 @@
         </div>
     </div>
 </main>
-<th:block th:replace="~{fragment/footer}"></th:block>
-<script type="module" th:src="@{/js/userIndex.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.min.js"></script>
+<script type="module" src="/js/common.js"></script>
+<script type="module" src="/js/userIndex.js"></script>
 </body>
 </html>
